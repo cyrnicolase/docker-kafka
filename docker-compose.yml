@@ -25,6 +25,9 @@ services:
   # kafka节点
   kafka0:
     container_name: c-kafka0
+    depends_on: 
+      - zk0
+      - zk1
     build: 
       context: ./kafka
     networks:
@@ -34,6 +37,9 @@ services:
     command: ["/kafka/bin/kafka-server-start.sh", "/kafka/config/server.properties"]
   kafka1:
     container_name: c-kafka1
+    depends_on: 
+      - zk0
+      - zk1
     build: 
       context: ./kafka
     networks:
@@ -43,6 +49,9 @@ services:
     command: ["/kafka/bin/kafka-server-start.sh", "/kafka/config/server.properties"]
   kafka2:
     container_name: c-kafka2
+    depends_on: 
+      - zk0
+      - zk1
     build:
       context: ./kafka
     networks:
