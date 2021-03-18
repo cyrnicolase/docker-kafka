@@ -1,0 +1,55 @@
+version: "3"
+services:
+  # zookeeper 节点
+  zk0:
+    container_name: c-zookeeper0
+    image: i-zookeeper:1.0.0
+    networks:
+      - my-net
+    volumes:
+      - /Users/chenyarong/.config/kafka/zookeeper_config/zk0/myid:/data/zookeeper/myid
+      - /Users/chenyarong/.config/kafka/zookeeper_config/zk0:/zookeeper/conf
+    command: ["/zookeeper/bin/zkServer.sh", "start-foreground"]
+
+  # zookeeper 节点
+  zk1:
+    container_name: c-zookeeper1
+    image: i-zookeeper:1.0.0
+    networks:
+      - my-net
+    volumes:
+      - /Users/chenyarong/.config/kafka/zookeeper_config/zk1/myid:/data/zookeeper/myid
+      - /Users/chenyarong/.config/kafka/zookeeper_config/zk1:/zookeeper/conf
+    command: ["/zookeeper/bin/zkServer.sh", "start-foreground"]
+
+  # kafka节点
+  kafka0:
+    container_name: c-kafka0
+    image: i-kafka:1.0.0
+    networks:
+      - my-net
+    volumes:
+      - /Users/chenyarong/.config/kafka/kafka_config/kafka0:/kafka/config
+    command: ["/kafka/bin/kafka-server-start.sh", "/kafka/config/server.properties"]
+  # kafka节点
+  kafka1:
+    container_name: c-kafka1
+    image: i-kafka:1.0.0
+    networks:
+      - my-net
+    volumes:
+      - /Users/chenyarong/.config/kafka/kafka_config/kafka1:/kafka/config
+    command: ["/kafka/bin/kafka-server-start.sh", "/kafka/config/server.properties"]
+  # kafka节点
+  kafka2:
+    container_name: c-kafka2
+    image: i-kafka:1.0.0
+    networks:
+      - my-net
+    volumes:
+      - /Users/chenyarong/.config/kafka/kafka_config/kafka2:/kafka/config
+    command: ["/kafka/bin/kafka-server-start.sh", "/kafka/config/server.properties"]
+
+  # 自定义桥接网络
+networks:
+  my-net: {}
